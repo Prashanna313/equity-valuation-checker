@@ -1,0 +1,27 @@
+name: Data quality issue
+description: A ticker shows wrong, implausible, or missing data
+labels: [data-quality]
+body:
+  - type: input
+    id: ticker
+    attributes:
+      label: Ticker
+      placeholder: e.g. AAPL, RELIANCE.NS
+    validations:
+      required: true
+
+  - type: textarea
+    id: issue
+    attributes:
+      label: What looks wrong?
+      description: Describe the number or output that seems incorrect.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+      description: Include a source if you have one (e.g. annual report, Bloomberg).
+    validations:
+      required: false

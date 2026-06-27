@@ -39,3 +39,17 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Local Netlify folder
+.netlify
+
+# Editor / OS
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+Thumbs.db
+
+# Claude Code (AI tooling — not part of the project)
+.claude/

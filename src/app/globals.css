@@ -1,26 +1,119 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Design tokens — "The ledger meets the verdict" */
+  --color-ink: #11100D;
+  --color-surface: #1A1813;
+  --color-parchment: #E8E2D4;
+  --color-slate-accent: #7A8B99;
+
+  /* Signal colors — carry meaning, not decoration */
+  --color-overvalued: #D64545;
+  --color-undervalued: #3D9970;
+  --color-fairly-valued: #D9A441;
+
+  /* Override tailwind slate family to match our ink palette */
+  --color-slate-900: #1A1813;
+  --color-slate-800: #252219;
+
+  /* Fonts */
+  --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", "Courier New", monospace;
+  --font-sans: "Inter", system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
 }
+
+html {
+  color-scheme: dark;
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+}
+
+/* Light mode: override everything with explicit rules so Tailwind's
+   compiled oklch slate values don't matter — we just replace them all. */
+html[data-theme="light"] body {
+  background-color: #F7F4EE;
+  color: #18160F;
+}
+
+html[data-theme="light"] .text-parchment   { color: #18160F !important; }
+html[data-theme="light"] .text-slate-300   { color: #3A3830 !important; }
+html[data-theme="light"] .text-slate-400   { color: #4A4840 !important; }
+html[data-theme="light"] .text-slate-500   { color: #5E5C54 !important; }
+html[data-theme="light"] .text-slate-600   { color: #706E66 !important; }
+html[data-theme="light"] .text-slate-700   { color: #8A8880 !important; }
+html[data-theme="light"] .bg-surface       { background-color: #EDEAE3 !important; }
+html[data-theme="light"] .border-white\/5  { border-color: rgb(0 0 0 / 0.08) !important; }
+html[data-theme="light"] .border-white\/8  { border-color: rgb(0 0 0 / 0.1)  !important; }
+html[data-theme="light"] .border-white\/10 { border-color: rgb(0 0 0 / 0.12) !important; }
+html[data-theme="light"] .border-white\/20 { border-color: rgb(0 0 0 / 0.2)  !important; }
+html[data-theme="light"] .border-white\/30 { border-color: rgb(0 0 0 / 0.28) !important; }
+html[data-theme="light"] header              { background-color: #F7F4EE; }
+html[data-theme="light"] header a            { color: #4A4840; }
+html[data-theme="light"] header a:hover      { color: #18160F; }
+html[data-theme="light"] .bg-surface\/60     { background-color: rgb(237 234 227 / 0.9) !important; }
+html[data-theme="light"] .bg-amber-950\/10   { background-color: rgb(255 237 213 / 0.5) !important; }
+html[data-theme="light"] .text-amber-400     { color: #92400e !important; }
+html[data-theme="light"] .text-amber-400\/70 { color: rgb(146 64 14 / 0.85) !important; }
+html[data-theme="light"] .text-amber-400\/90 { color: #78350f !important; }
+html[data-theme="light"] .border-amber-500\/15  { border-color: rgb(180 83 9 / 0.2) !important; }
+html[data-theme="light"] .text-emerald-400      { color: #166534 !important; }
+html[data-theme="light"] .text-red-400          { color: #991b1b !important; }
+html[data-theme="light"] .bg-emerald-950\/40    { background-color: rgb(6 78 59 / 0.08) !important; }
+html[data-theme="light"] .bg-red-950\/40        { background-color: rgb(69 10 10 / 0.08) !important; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-ink, #11100D);
+  color: var(--color-parchment, #E8E2D4);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-surface, #1A1813);
+}
+::-webkit-scrollbar-thumb {
+  background: #999;
+  border-radius: 3px;
+}
+
+/* Accent color for range inputs */
+input[type="range"] {
+  accent-color: var(--color-parchment, #E8E2D4);
+}
+
+/* Focus visible styles */
+:focus-visible {
+  outline: 2px solid #7A8B99;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Index ticker scroller */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+  will-change: transform;
+  width: max-content;
+  flex-shrink: 0;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
 }

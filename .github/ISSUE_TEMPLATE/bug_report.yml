@@ -1,0 +1,43 @@
+name: Bug report
+description: Something is broken or showing wrong data
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug. For data issues (wrong revenue, implausible numbers), please include the ticker symbol.
+
+  - type: input
+    id: ticker
+    attributes:
+      label: Ticker (if applicable)
+      placeholder: e.g. AAPL, RELIANCE.NS
+    validations:
+      required: false
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you see? What did you expect?
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Go to ...
+        2. Search for ...
+        3. See ...
+    validations:
+      required: true
+
+  - type: input
+    id: browser
+    attributes:
+      label: Browser / environment
+      placeholder: e.g. Chrome 125, macOS 14
+    validations:
+      required: false
